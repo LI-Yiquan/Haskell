@@ -125,7 +125,12 @@ digitalRoot n
 -- ["bicycle", "my", "ride", "to", "want", "i"]
 
 listReverse :: [a] -> [a]
-listReverse xs = error "TBD"
+-- listReverse xs = error "TBD"
+listReverse xs = reverseAcc xs []   
+  where
+    reverseAcc :: [a] -> [a] -> [a]  
+    reverseAcc []     acc = acc       
+    reverseAcc (x:xs) acc = reverseAcc xs (x:acc) 
 
 -- | In Haskell, a `String` is a simply a list of `Char`, that is:
 --
@@ -139,7 +144,15 @@ listReverse xs = error "TBD"
 -- False
 
 palindrome :: String -> Bool
-palindrome w = error "TBD"
+-- palindrome w = error "TBD"
+palindrome w = isReverse w w
+  where
+    isReverse :: String -> String -> Bool
+    isReverse [] [] = True
+    isReverse (x:xs) (y:ys)
+      | x == y = isReverse xs ys  
+      | otherwise = False        
+    isReverse _ _ = False         
 
 
 -- | sqSum [x1, ... , xn] should return (x1^2 + ... + xn^2)
