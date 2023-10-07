@@ -169,8 +169,8 @@ palindrome w = isReverse w w
 sqSum :: [Int] -> Int
 sqSum xs = foldLeft f base xs
   where
-   f a x = error "TBD: sqSum f"
-   base  = error "TBD: sqSum base"
+   f a x = a + x^2  
+   base  = 0
 
 
 
