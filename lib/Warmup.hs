@@ -186,10 +186,17 @@ sqSum xs = foldLeft f base xs
 -- 24
 
 pipe :: [(a -> a)] -> (a -> a)
-pipe fs   = foldLeft f base fs
+-- pipe fs   = foldLeft f base fs
+--   where
+--     f a x = error "TBD"
+--     base  = error "TBD"
+pipe fs = foldLeft f base fs
   where
-    f a x = error "TBD"
-    base  = error "TBD"
+    f :: (a -> a) -> (a -> a) -> (a -> a)
+    f g h x = h (g x)
+    
+    base :: a -> a
+    base = id
 
 -- | `sepConcat sep [s1,...,sn]` returns `s1 ++ sep ++ s2 ++ ... ++ sep ++ sn`
 --
@@ -204,11 +211,16 @@ pipe fs   = foldLeft f base fs
 
 sepConcat :: String -> [String] -> String
 sepConcat sep []    = ""
+--sepConcat sep (h:t) = foldLeft f base l
+--  where
+--    f a x           = error "TBD"
+--    base            = error "TBD"
+--    l               = error "TBD"
 sepConcat sep (h:t) = foldLeft f base l
   where
-    f a x           = error "TBD"
-    base            = error "TBD"
-    l               = error "TBD"
+    f a x           = if null a then x else a ++ sep ++ x 
+    base            = ""  
+    l               = h:t  
 
 
 intString :: Int -> String
@@ -227,7 +239,8 @@ intString = show
 -- "[[1, 2, 3], [4, 5], [6], []]"
 
 stringOfList :: (a -> String) -> [a] -> String
-stringOfList f xs = error "TBD"
+-- stringOfList f xs = error "TBD"
+stringOfList f xs = "[" ++ sepConcat ", " (map f xs) ++ "]"
 
 -- | `clone x n` returns a `[x,x,...,x]` containing `n` copies of `x`
 --
@@ -238,7 +251,10 @@ stringOfList f xs = error "TBD"
 -- ["foo", "foo"]
 
 clone :: a -> Int -> [a]
-clone x n = error "TBD"
+-- clone x n = error "TBD"
+clone x n
+  | n <= 0    = []           
+  | otherwise = x : clone x (n - 1) 
 
 type BigInt = [Int]
 
@@ -253,7 +269,15 @@ type BigInt = [Int]
 -- [1,0,0,2] [0,0,9,9]
 
 padZero :: BigInt -> BigInt -> (BigInt, BigInt)
-padZero l1 l2 = error "TBD"
+padZero l1 l2
+  | len1 < len2 = (prependZeros len2 l1, l2)
+  | len1 > len2 = (l1, prependZeros len1 l2)
+  | otherwise   = (l1, l2)
+  where
+    len1 = length l1
+    len2 = length l2
+    prependZeros len xs = zeros len xs ++ xs
+    zeros n xs = take (n - length xs) (repeat 0)
 
 -- | `removeZero ds` strips out all leading `0` from the left-side of `ds`.
 --
@@ -267,8 +291,7 @@ padZero l1 l2 = error "TBD"
 -- []
 
 removeZero :: BigInt -> BigInt
-removeZero ds = error "TBD"
-
+removeZero ds = dropWhile (== 0) ds
 
 -- | `bigAdd n1 n2` returns the `BigInt` representing the sum of `n1` and `n2`.
 --
@@ -279,13 +302,14 @@ removeZero ds = error "TBD"
 -- [1, 0, 9, 9, 8]
 
 bigAdd :: BigInt -> BigInt -> BigInt
-bigAdd l1 l2     = removeZero res
+bigAdd l1 l2 = removeZero finalRes
   where
-    (l1', l2')               = padZero l1 l2
-    (_  , res)               = foldRight f base args
-    f (x1, x2) (carry, sum)  = error "TBD"
-    base                     = error "TBD"
-    args                     = error "TBD"
+    (l1', l2') = padZero l1 l2
+    (finalCarry, res) = foldr f (0, []) (zip l1' l2')
+    f (x1, x2) (c, acc) = let s = x1 + x2 + c in (s `div` 10, s `mod` 10 : acc)
+    finalRes = case finalCarry of 
+                 0 -> res
+                 _ -> finalCarry : res
 
 
 -- | `mulByDigit i n` returns the result of multiplying
@@ -295,7 +319,11 @@ bigAdd l1 l2     = removeZero res
 -- [8,9,9,9,1]
 
 mulByDigit :: Int -> BigInt -> BigInt
-mulByDigit i l = error "TBD"
+mulByDigit i n = 
+    let (finalCarry, res) = foldr (\x (c, acc) -> 
+                                     let (newCarry, result) = divMod (i * x + c) 10 
+                                     in (newCarry, result : acc)) (0, []) n
+    in if finalCarry == 0 then removeZero res else finalCarry : res
 
 -- | `bigMul n1 n2` returns the `BigInt` representing the product of `n1` and `n2`.
 --
@@ -306,9 +334,25 @@ mulByDigit i l = error "TBD"
 -- [9,9,9,9,8,0,0,0,0,1]
 
 bigMul :: BigInt -> BigInt -> BigInt
+-- bigMul l1 l2 = res
+--   where
+--     (_, res)   = foldRight f base args
+--     f x (z, p) = error "TBD"
+--     base       = error "TBD"
+--     args       = error "TBD"
 bigMul l1 l2 = res
   where
-    (_, res)   = foldRight f base args
-    f x (z, p) = error "TBD"
-    base       = error "TBD"
-    args       = error "TBD"
+    (_, res) = foldr f base args
+    f digit (idx, acc) = (idx - 1, bigAdd acc (mulByDigitWithIndex digit idx))
+    base = (length l1 - 1, [])
+    args = l1
+    mulByDigitWithIndex digit idx = appendZeros idx (mulByDigit digit l2)
+    appendZeros 0 xs = xs
+    appendZeros n xs = 0 : appendZeros (n - 1) xs
+
+-- bigMul l1 l2 = 
+--   fst $ foldr f (zeroes, []) (zip l1 [0..])
+--  where
+--    zeroes = repeat 0
+--    f (x1, shift) (z, acc) = 
+--     (z, bigAdd (drop shift acc ++ take shift zeroes) (mulByDigit x1 l2))

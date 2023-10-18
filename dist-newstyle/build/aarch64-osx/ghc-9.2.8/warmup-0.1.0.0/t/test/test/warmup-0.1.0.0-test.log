@@ -21,109 +21,41 @@ Tests
     sqSum 1:                       OK
     sqSum 2:                       OK
     sqSum 3:                       OK
-    pipe 1:                        FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:192:13 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/pipe 1/' to rerun this test only.
+    pipe 1:                        OK
     pipe 2:                        FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:192:13 in warmup-0.1.0.0-inplace:Warmup
+      test/Test.hs:154:
+      Wrong Result
       Use -p '/pipe 2/' to rerun this test only.
     pipe 3:                        FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:192:13 in warmup-0.1.0.0-inplace:Warmup
+      test/Test.hs:154:
+      Wrong Result
       Use -p '/pipe 3/' to rerun this test only.
-    sepConcat 1:                   FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:211:23 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/sepConcat 1/' to rerun this test only.
+    sepConcat 1:                   OK
     sepConcat 2:                   OK
-    sepConcat 3:                   FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:211:23 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/sepConcat 3/' to rerun this test only.
-    sepConcat 4:                   FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:211:23 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/sepConcat 4/' to rerun this test only.
-    stringOfList 1:                FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:230:21 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/stringOfList 1/' to rerun this test only.
-    stringOfList 2:                FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:230:21 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/stringOfList 2/' to rerun this test only.
-    stringOfList 3:                FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:230:21 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/stringOfList 3/' to rerun this test only.
-    clone 1:                       FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:241:13 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/clone 1/' to rerun this test only.
-    clone 2:                       FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:241:13 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/clone 2/' to rerun this test only.
-    padzero 1:                     FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:256:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/padzero 1/' to rerun this test only.
-    padzero 2:                     FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:256:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/padzero 2/' to rerun this test only.
-    removeZero 1:                  FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:270:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/removeZero 1/' to rerun this test only.
-    removeZero 2:                  FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:270:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/removeZero 2/' to rerun this test only.
-    bigAdd 1:                      FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:270:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/bigAdd 1/' to rerun this test only.
-    bigAdd 2:                      FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:270:17 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/bigAdd 2/' to rerun this test only.
-    mulByDigit 1:                  FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:298:18 in warmup-0.1.0.0-inplace:Warmup
-      Use -p '/mulByDigit 1/' to rerun this test only.
+    sepConcat 3:                   OK
+    sepConcat 4:                   OK
+    stringOfList 1:                OK
+    stringOfList 2:                OK
+    stringOfList 3:                OK
+    clone 1:                       OK
+    clone 2:                       OK
+    padzero 1:                     OK
+    padzero 2:                     OK
+    removeZero 1:                  OK
+    removeZero 2:                  OK
+    bigAdd 1:                      OK
+    bigAdd 2:                      OK
+    mulByDigit 1:                  OK
     bigMul 1:                      FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:314:18 in warmup-0.1.0.0-inplace:Warmup
+      test/Test.hs:154:
+      Wrong Result
       Use -p '/bigMul 1/' to rerun this test only.
     bigMul 2:                      FAIL
-      Exception: TBD
-      CallStack (from HasCallStack):
-        error, called at lib/Warmup.hs:314:18 in warmup-0.1.0.0-inplace:Warmup
+      test/Test.hs:154:
+      Wrong Result
       Use -p '/bigMul 2/' to rerun this test only.
 
-21 out of 37 tests failed (0.00s)
-OVERALL SCORE = 16 / 37
+5 out of 37 tests failed (0.00s)
+OVERALL SCORE = 32 / 37
 Test suite test: FAIL
 Test suite logged to: /Users/liyiquan/Desktop/wisc23fall/CS538/Week4/pa4/dist-newstyle/build/aarch64-osx/ghc-9.2.8/warmup-0.1.0.0/t/test/test/warmup-0.1.0.0-test.log
